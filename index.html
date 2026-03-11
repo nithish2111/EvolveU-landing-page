@@ -82,14 +82,63 @@
         </div>
       </section>
 
-      <section id="method" class="section alt">
-        <div class="container">
-          <h2>From Hesitation to Confidence — In 4 Steps</h2>
-          <div class="steps">
-            <div><b>1</b><h3>Take Free Self-Assessment</h3><p>Know your level: A1, B1, or C1.</p></div>
-            <div><b>2</b><h3>Pick Your Course</h3><p>Choose communication or finance career tracks.</p></div>
-            <div><b>3</b><h3>Learn with Structure</h3><p>Weekly live classes + mentor feedback loops.</p></div>
-            <div><b>4</b><h3>Speak with Confidence</h3><p>Apply skills in interviews and workplaces.</p></div>
+      <section id="method" class="section alt method-scroll" aria-label="From Hesitation to Confidence — In 4 Steps">
+        <div class="method-track">
+          <div class="container method-sticky">
+            <div class="method-content">
+              <h2>From Hesitation to Confidence — In 4 Steps</h2>
+              <div class="method-steps" role="list" aria-live="polite">
+                <article class="method-step active" data-step="1" role="listitem">
+                  <span class="step-dot" aria-hidden="true"></span>
+                  <div>
+                    <p class="step-label">Step 1</p>
+                    <h3>Take Free Self-Assessment</h3>
+                    <p>Know your level: A1, B1, or C1.</p>
+                  </div>
+                </article>
+                <article class="method-step" data-step="2" role="listitem">
+                  <span class="step-dot" aria-hidden="true"></span>
+                  <div>
+                    <p class="step-label">Step 2</p>
+                    <h3>Pick Your Course</h3>
+                    <p>Choose communication or finance career tracks.</p>
+                  </div>
+                </article>
+                <article class="method-step" data-step="3" role="listitem">
+                  <span class="step-dot" aria-hidden="true"></span>
+                  <div>
+                    <p class="step-label">Step 3</p>
+                    <h3>Learn with Structure</h3>
+                    <p>Weekly live classes + mentor feedback loops.</p>
+                  </div>
+                </article>
+                <article class="method-step" data-step="4" role="listitem">
+                  <span class="step-dot" aria-hidden="true"></span>
+                  <div>
+                    <p class="step-label">Step 4</p>
+                    <h3>Speak with Confidence</h3>
+                    <p>Apply skills in interviews and workplaces.</p>
+                  </div>
+                </article>
+                <span class="progress-line" aria-hidden="true"><span class="progress-fill"></span></span>
+              </div>
+            </div>
+
+            <div class="method-visual" aria-hidden="true">
+              <div class="orbit-scene">
+                <div class="orbit-rotator" id="orbitRotator">
+                  <span class="orbit orbit-1"></span>
+                  <span class="orbit orbit-2"></span>
+                  <span class="orbit orbit-3"></span>
+                  <span class="node node-1"></span>
+                  <span class="node node-2"></span>
+                  <span class="node node-3"></span>
+                  <span class="node node-4"></span>
+                  <span class="node node-5"></span>
+                </div>
+                <span class="orbit-core"></span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -195,5 +244,41 @@
         </div>
       </div>
     </footer>
+  
+    <script>
+      // Scroll-driven step logic for the "From Hesitation to Confidence — In 4 Steps" section only.
+      (() => {
+        const section = document.querySelector('.method-scroll');
+        const steps = Array.from(section?.querySelectorAll('.method-step') || []);
+        const progressFill = section?.querySelector('.progress-fill');
+        const rotator = section?.querySelector('#orbitRotator');
+
+        if (!section || !steps.length || !progressFill || !rotator) return;
+
+        const totalSteps = 4;
+
+        const updateState = (index) => {
+          steps.forEach((step, i) => step.classList.toggle('active', i === index));
+          progressFill.style.transform = `scaleY(${index / (totalSteps - 1)})`;
+          // 25% turn per step => 90deg increments.
+          rotator.style.transform = `translate(-50%, -50%) rotate(${index * 90}deg)`;
+        };
+
+        const onScroll = () => {
+          const rect = section.getBoundingClientRect();
+          const maxScroll = Math.max(1, rect.height - window.innerHeight);
+          const progressed = Math.min(Math.max(-rect.top, 0), maxScroll);
+          const fraction = progressed / maxScroll;
+          const index = Math.min(totalSteps - 1, Math.floor(fraction * totalSteps));
+          updateState(index);
+        };
+
+        updateState(0);
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll);
+      })();
+    </script>
+
   </body>
 </html>

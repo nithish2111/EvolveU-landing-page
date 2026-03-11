@@ -78,11 +78,121 @@ label { display:block; margin-bottom:.65rem; font-size:.92rem; color:#3f5667; }
 input, select { width:100%; padding:.7rem; border-radius:10px; border:1px solid #cfdde9; margin-top:.3rem; }
 .footer { background: var(--navy); color:#fff; padding: 2rem 0; }
 .footer-wrap { display:grid; grid-template-columns: repeat(3,1fr); gap:1rem; }
+
+
+/* Interactive method section (only for #method). */
+.method-scroll { padding: 0; }
+.method-scroll .method-track { height: 320vh; }
+.method-scroll .method-sticky {
+  position: sticky;
+  top: 88px;
+  min-height: calc(100vh - 88px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+  padding-block: 2rem;
+}
+.method-scroll .method-content h2 { margin-top: 0; max-width: 18ch; }
+.method-scroll .method-steps {
+  position: relative;
+  display: grid;
+  gap: 1rem;
+  padding-left: 2rem;
+  margin-top: 1.2rem;
+}
+.method-scroll .progress-line {
+  position: absolute;
+  left: .45rem;
+  top: .7rem;
+  bottom: .7rem;
+  width: 2px;
+  background: #c8d9e7;
+}
+.method-scroll .progress-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--orange);
+  transform-origin: top;
+  transform: scaleY(0);
+  transition: transform .35s ease;
+}
+.method-scroll .method-step {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: .75rem;
+  background: #fff;
+  border: 1px solid #dde8f0;
+  border-radius: 14px;
+  padding: 1rem;
+  opacity: .45;
+  transition: opacity .3s ease, border-color .3s ease, box-shadow .3s ease;
+}
+.method-scroll .method-step.active {
+  opacity: 1;
+  border-color: var(--navy);
+  box-shadow: 0 10px 20px #0b3c5d12;
+}
+.method-scroll .step-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #b8cad8;
+  margin-top: .35rem;
+}
+.method-scroll .method-step.active .step-dot { background: var(--orange); }
+.method-scroll .step-label { margin: 0 0 .2rem; font-weight: 700; color: var(--navy); }
+.method-scroll .method-step h3 { margin: 0 0 .2rem; color: var(--navy); }
+.method-scroll .method-step p { margin: 0; color: #496170; }
+
+.method-scroll .method-visual { display: grid; place-items: center; }
+.method-scroll .orbit-scene { position: relative; width: min(34vw, 430px); aspect-ratio: 1; }
+.method-scroll .orbit-rotator {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%) rotate(0deg);
+  transition: transform .55s ease;
+}
+.method-scroll .orbit { position: absolute; border: 2px solid #b9cede; border-radius: 50%; }
+.method-scroll .orbit-1 { inset: 6%; }
+.method-scroll .orbit-2 { inset: 18%; }
+.method-scroll .orbit-3 { inset: 30%; }
+.method-scroll .orbit-core {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--navy);
+  border: 6px solid #dce9f3;
+}
+.method-scroll .node {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--orange);
+  box-shadow: 0 0 0 6px #fff;
+}
+.method-scroll .node-1 { top: 5%; left: 50%; }
+.method-scroll .node-2 { top: 50%; right: 5%; }
+.method-scroll .node-3 { bottom: 8%; left: 26%; }
+.method-scroll .node-4 { top: 28%; left: 72%; }
+.method-scroll .node-5 { bottom: 30%; left: 58%; }
+
 @media (max-width: 950px) {
   .hero-grid, .split { grid-template-columns: 1fr; }
   .cards { grid-template-columns: repeat(2,1fr); }
   .steps { grid-template-columns: repeat(2,1fr); }
   .pain-grid { grid-template-columns: repeat(2,1fr); }
+  .method-scroll .method-track { height: auto; }
+  .method-scroll .method-sticky { position: static; min-height: auto; grid-template-columns: 1fr; }
+  .method-scroll .method-content h2 { max-width: none; }
+  .method-scroll .orbit-scene { width: min(84vw, 360px); margin-top: .8rem; }
 }
 
 @media (max-width: 950px) {
